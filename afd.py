@@ -18,17 +18,29 @@ class AFD:
         return estado_atual in self.estados_finais
 
 
-estados = {'q0', 'q1', 'q2', 'q3'}
-simbolos = {'0', '1', '2'}
-transicoes = {('q0', '0'): 'q1', ('q0', '1'): 'q0', ('q1', '0'): 'q2', ('q1', '1'): 'q0', ('q2', '0'): 'q2', ('q2', '1'): 'q2'}
-estado_inicial = 'q0'
-estados_finais = {'q3'}
+estados = input("Informe os estados do autômato separados por vírgula: ").split(',')
+simbolos = input("Informe os símbolos do autômato separados por vírgula: ").split(',')
+
+transicoes = {}
+print("Informe as transições de estados:")
+while True:
+    entrada = input("Estado atual (ou digite 'sair' para finalizar): ")
+    if entrada == 'sair':
+        break
+    simbolo = input("Símbolo: ")
+    proximo_estado = input("Próximo estado: ")
+    transicoes[(entrada, simbolo)] = proximo_estado
+
+estado_inicial = input("Informe o estado inicial do autômato: ")
+estados_finais = input("Informe os estados finais do autômato separados por vírgula: ").split(',')
 
 automato = AFD(estados, simbolos, transicoes, estado_inicial, estados_finais)
 
-entrada = input("Digite uma sequência de 0 e 1s: ")
-
-if automato.executar(entrada):
-    print("A sequência é aceita pelo autômato.")
-else:
-    print("A sequência não é aceita pelo autômato.")
+while True:
+    entrada = input("Digite uma palavra (ou digite 'sair' para finalizar): ")
+    if entrada == 'sair':
+        break
+    if automato.executar(entrada):
+        print("A palavra é aceita pelo autômato.")
+    else:
+        print("A palavra não é aceita pelo autômato.")
